@@ -12,22 +12,28 @@ public abstract class Terrain {
 	
 	private boolean hasUnit;
 	private boolean hasBuilding;
-	private boolean hasResource;
+	private int resource;
 	
 	private Civilization civ;
 	
 	private Image img;
+	private Image depImg;
+	private Image fullImg;
 	
-	public Terrain (Image img) {
+	public Terrain (Image img, Image depImg, Image fullImg) {
 		this.img = img;
+		this.depImg = depImg;
+		this.fullImg = fullImg;
 	}
 	
 	public abstract void changeCiv (Civilization nCiv);
 	
-	public abstract void draw (Graphics g);
+	public abstract void draw (Graphics g, int x, int y);
 	
 	public abstract int applyAttackBuff (int cAttack);
 	public abstract int applyDefenseBuff (int cDefense);
+	
+	public abstract void useResource ();
 	
 	public abstract boolean hasUnit ();
 	public abstract boolean hasBuilding ();
