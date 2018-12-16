@@ -25,6 +25,10 @@ public abstract class Terrain {
 	private Image depImg;
 	private Image fullImg;
 	
+	public Terrain () {
+		
+	}
+	
 	public Terrain (Image img, Image depImg, Image fullImg) {
 		this.img = img;
 		this.depImg = depImg;

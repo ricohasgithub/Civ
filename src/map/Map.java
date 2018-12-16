@@ -62,7 +62,7 @@ public class Map {
 		// Get the approximate 
 		int rad = (int) Math.sqrt(size / Math.PI);
 		
-		grid[x][y] = new Grassland(null, null, null);
+		grid[x][y] = new Grassland();
 		
 		// Top left corner
 		int x1 = x - rad;
@@ -73,7 +73,7 @@ public class Map {
 		
 		for (int r=x1; r<x2; r++) {
 			for (int c=y1; c<y2; c++) {
-				grid[r][c] = new Grassland(null, null, null);
+				grid[r][c] = new Grassland();
 			}
 		}
 		
