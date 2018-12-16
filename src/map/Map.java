@@ -26,10 +26,20 @@ public class Map {
 		// Randomly decide the number of continents to have (1 - 3)
 		numContinents = ((int) Math.random() * 3) + 1;
 		
+		// Random variable for temperature / equator deserts (how dry to world is)
+		int temp = (int) Math.random() * 3;
+		
+		// Random variable for climate - overall ratio of wetlands and forests
+		int climate = (int) Math.random() * 3;
+		
+		// Random variable for age - mountain ratio
+		
 		// This loop randomly generates numContinents continents
 		for (int cont=0; cont<numContinents; cont++) {
 			
 		}
+		
+		// Default tile is grassland on land and ocean on water
 		
 	}
 
