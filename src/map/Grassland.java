@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import civ.Civilization;
+import unit.Unit;
 
 public class Grassland extends Terrain {
 	
@@ -12,8 +13,11 @@ public class Grassland extends Terrain {
 	
 	private boolean hasUnit;
 	private boolean hasBuilding;
+	private boolean isHidden;
 	
 	private int resources;
+	
+	private Unit unit;
 	
 	private Civilization civ;
 	
@@ -74,6 +78,10 @@ public class Grassland extends Terrain {
 
 	public boolean hasBuilding () {
 		return hasBuilding;
+	}
+	
+	public boolean isHidden () {
+		return isHidden;
 	}
 
 	public boolean hasResource () {

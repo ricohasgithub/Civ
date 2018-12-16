@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import civ.Civilization;
+import unit.Unit;
 
 public abstract class Terrain {
 
@@ -12,9 +13,13 @@ public abstract class Terrain {
 	
 	private boolean hasUnit;
 	private boolean hasBuilding;
+	private boolean isHidden;
+	
 	private int resource;
 	
 	private Civilization civ;
+	
+	private Unit unit;
 	
 	private Image img;
 	private Image depImg;
@@ -37,6 +42,7 @@ public abstract class Terrain {
 	
 	public abstract boolean hasUnit ();
 	public abstract boolean hasBuilding ();
+	public abstract boolean isHidden ();
 	public abstract boolean hasResource ();
 	
 }
