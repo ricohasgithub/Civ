@@ -36,8 +36,8 @@ public class Ocean extends Terrain {
 		// Initialize images for default (no resources), depleted resources, and full resources
 		try {
 			defaultImg = ImageIO.read(new File("images/tOcean.png"));
-			depImg = ImageIO.read(new File("images/tOcean.jpg"));
-			fullImg = ImageIO.read(new File("images/tOcean.jpg"));
+			depImg = ImageIO.read(new File("images/tOcean.png"));
+			fullImg = ImageIO.read(new File("images/tOcean.png"));
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}

@@ -1,5 +1,12 @@
 package map;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Map {
 	
 	public Terrain [][] grid;
@@ -7,8 +14,22 @@ public class Map {
 	private int N;
 	private int numContinents;
 	
+	Image grasslandDef;
+	Image oceanDef;
+	
 	// Default Constructor - make the map 255 by 255 terrain blocks
 	public Map () {
+		
+		try {
+			grasslandDef = ImageIO.read(new File("images/tGrassland.png"));
+			oceanDef = ImageIO.read(new File("images/tOcean.png"));
+		} catch (IOException e) {
+			System.out.println("File not found");
+		}
+		
+		grasslandDef = grasslandDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		oceanDef = oceanDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		
 		N = 255;
 		grid = new Terrain[255][255];
 		initializeRanTerrain();
@@ -19,6 +40,19 @@ public class Map {
 		this.N = N;
 		grid = new Terrain[N][N];
 		initializeRanTerrain();
+	}
+	
+	public void drawMap (Graphics g) {
+		System.out.println("Drawing Map");
+		int cx = 0;
+		for (int r=0; r<N; r++) {
+			int cy = 0;
+			for (int c=0; c<N; c++) {
+				grid[r][c].draw(g, cx, cy);
+				cy += 50;
+			}
+			cx += 50;
+		}
 	}
 	
 	// This method would randomly initialize the grid 2D array with random terrain blocks
@@ -54,6 +88,17 @@ public class Map {
 		}
 		
 		// Default tile is grassland for land based tiles and ocean for water based tile
+		System.out.println("Adding Oceans...");
+		// Initialize all other tiles with ocean
+		for (int r=0; r<N; r++) {
+			for (int c=0; c<N; c++) {
+				if (grid[r][c] == null) {
+					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef);
+				}
+			}
+		}
+		
+		System.out.println("Done Adding Oceans");
 		
 	}
 	
@@ -62,18 +107,21 @@ public class Map {
 		// Get the approximate 
 		int rad = (int) Math.sqrt(size / Math.PI);
 		
-		grid[x][y] = new Grassland();
+		grid[x][y] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
 		
-		// Top left corner
-		int x1 = x - rad;
-		int y1 = y - rad;
+		// Top left corner (x - rad or 0)
+		int x1 = Math.max(x - rad, 0);
+		int y1 = Math.max(y - rad, 0);
 		// Bottom Right corner
-		int x2 = x + rad;
-		int y2 = y + rad;
+		int x2 = Math.min(x + rad, N - 1);
+		int y2 = Math.min(y + rad, N - 1);
 		
 		for (int r=x1; r<x2; r++) {
 			for (int c=y1; c<y2; c++) {
-				grid[r][c] = new Grassland();
+				if (r >= N || c >= N) {
+					break;
+				}
+				grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
 			}
 		}
 		

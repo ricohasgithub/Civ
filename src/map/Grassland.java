@@ -32,16 +32,18 @@ public class Grassland extends Terrain {
 
 	public Grassland () {
 		super();
-		// Initialize resources
-		initResourceWHP();
+		
 		// Initialize images for default (no resources), depleted resources, and full resources
 		try {
 			defaultImg = ImageIO.read(new File("images/tGrassland.png"));
-			depImg = ImageIO.read(new File("images/tGrassland.jpg"));
-			fullImg = ImageIO.read(new File("images/tGrassland.jpg"));
+			depImg = ImageIO.read(new File("images/tGrassland.png"));
+			fullImg = ImageIO.read(new File("images/tGrassland.png"));
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}
+		
+		// Initialize resources
+		initResourceWHP();
 
 		defaultImg = defaultImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		depImg = depImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
