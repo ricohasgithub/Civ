@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import java.util.ArrayList;
+
 public class Map {
 
 	public Terrain [][] grid;
@@ -16,6 +18,8 @@ public class Map {
 
 	Image grasslandDef;
 	Image oceanDef;
+	
+	ArrayList<Terrain> tLandMass;
 
 	// Default Constructor - make the map 255 by 255 terrain blocks
 	public Map () {
@@ -32,6 +36,9 @@ public class Map {
 
 		N = 50;
 		grid = new Terrain[50][50];
+		
+		tLandMass = new ArrayList<Terrain>();
+		
 		initializeRanTerrain();
 	}
 
@@ -49,9 +56,9 @@ public class Map {
 			int cy = 0;
 			for (int c=0; c<N; c++) {
 				grid[r][c].draw(g, cx, cy);
-				cy += 50;
+				cy += 20;
 			}
-			cx += 50;
+			cx += 20;
 		}
 	}
 
@@ -98,12 +105,30 @@ public class Map {
 			System.out.println("Continent " + cont + " Size: " + cSize);
 
 			// Randomly initialize continent center position
-			int x = (int) Math.random() * N;
-			int y = (int) Math.random() * N;
+			int x = (int) (Math.random() * N);
+			int y = (int) (Math.random() * N);
+			
+			System.out.println("X: " + x + ", " + "Y: " + y);
 
 			addContinentToMap(x, y, cSize);
-
+			
 		}
+		
+		// If there isn't enough landmass on the map, add a fourth continent
+		if (tLandMass.size() < 850) {
+			
+			System.out.println("Adding Fourth Continent...");
+			
+			int cSize = addNoiseToContSize(pCSize);
+			
+			int x = (int) (Math.random() * N);
+			int y = (int) (Math.random() * N);
+			
+			addContinentToMap(x, y, cSize);
+			
+		}
+		
+		System.out.println("Total Land Mass: " + tLandMass.size());
 
 	}
 
@@ -124,9 +149,10 @@ public class Map {
 		for (int r=x1; r<x2; r++) {
 			for (int c=y1; c<y2; c++) {
 				grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+				tLandMass.add(grid[r][c]);
 			}
 		}
-
+	
 	}
 
 	// This method adds noise to a perfect sized continent

@@ -42,9 +42,9 @@ public class Ocean extends Terrain {
 			System.out.println("File not found");
 		}
 
-		defaultImg = defaultImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		depImg = depImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		fullImg = fullImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		defaultImg = defaultImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+		depImg = depImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+		fullImg = fullImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		
 	}
 

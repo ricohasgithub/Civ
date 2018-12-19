@@ -45,9 +45,9 @@ public class Grassland extends Terrain {
 		// Initialize resources
 		initResourceWHP();
 
-		defaultImg = defaultImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		depImg = depImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		fullImg = fullImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		defaultImg = defaultImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+		depImg = depImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+		fullImg = fullImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		
 	}
 
