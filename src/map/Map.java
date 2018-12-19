@@ -114,6 +114,9 @@ public class Map {
 			
 		}
 		
+		// Add lakes
+		addLakes(2);
+		
 		// If there isn't enough landmass on the map, add a fourth continent
 		if (tLandMass.size() < 850) {
 			
@@ -153,6 +156,40 @@ public class Map {
 			}
 		}
 	
+	}
+	
+	// This method adds random blots of water (lakes) onto the landmasses
+	private void addLakes (int numBodies) {
+		for (int i=0; i<numBodies; i++) {
+			// Get a random radius for each lake
+			int rad = (int) (Math.random() * 7) + 1;
+			
+			int x = (int) (Math.random() * N);
+			int y = (int) (Math.random() * N);
+			
+			while (!(grid[x][y] instanceof Grassland)) {
+				x = (int) (Math.random() * N);
+				y = (int) (Math.random() * N);
+			}
+			
+			tLandMass.remove(grid[x][y]);
+			grid[x][y] = new Ocean(oceanDef, oceanDef, oceanDef);
+			
+			// Top left corner (x - rad or 0)
+			int x1 = Math.max(x - rad, 0);
+			int y1 = Math.max(y - rad, 0);
+			// Bottom Right corner
+			int x2 = Math.min(x + rad, N - 1);
+			int y2 = Math.min(y + rad, N - 1);
+
+			for (int r=x1; r<x2; r++) {
+				for (int c=y1; c<y2; c++) {
+					tLandMass.remove(grid[r][c]);
+					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef);
+				}
+			}
+			
+		}
 	}
 
 	// This method adds noise to a perfect sized continent
