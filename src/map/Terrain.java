@@ -25,15 +25,20 @@ public abstract class Terrain {
 	private Image img;
 	private Image depImg;
 	private Image fullImg;
+	private Image selectedImage;
+	
+	private int N;
 	
 	public Terrain () {
 		
 	}
 	
-	public Terrain (Image img, Image depImg, Image fullImg) {
+	public Terrain (Image img, Image depImg, Image fullImg, Image selectedImage, int N) {
 		this.img = img;
 		this.depImg = depImg;
 		this.fullImg = fullImg;
+		this.selectedImage = selectedImage;
+		this.N = N;
 	}
 	
 	public abstract void changeCiv (Civilization nCiv);

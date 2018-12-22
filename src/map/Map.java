@@ -14,6 +14,7 @@ public class Map {
 	public Terrain [][] grid;
 
 	private int N;
+	private int tileLength;
 	private int numContinents;
 
 	Image grasslandDef;
@@ -21,6 +22,9 @@ public class Map {
 	Image desertDef;
 
 	ArrayList<Terrain> tLandMass;
+	
+	int[] spawnXLocs;
+	int[] spawnYLocs;
 
 	// Default Constructor - make the map 255 by 255 terrain blocks
 	public Map () {
@@ -37,6 +41,7 @@ public class Map {
 		oceanDef = oceanDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
 		N = 50;
+		tileLength = 50;
 		grid = new Terrain[50][50];
 
 		tLandMass = new ArrayList<Terrain>();
@@ -73,7 +78,7 @@ public class Map {
 		for (int r=0; r<N; r++) {
 			for (int c=0; c<N; c++) {
 				if (grid[r][c] == null) {
-					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef);
+					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef, oceanDef, tileLength);
 				}
 			}
 		}
@@ -93,7 +98,7 @@ public class Map {
 
 		// Random variable for age - mountain ratio
 		int age = (int) (Math.random() * 3);
-		
+
 		System.out.println("Temperature: " + temp);
 
 		// This variable determines how large a perfect continent would be
@@ -123,7 +128,7 @@ public class Map {
 
 		// Add islands
 		addIslands(4);
-		
+
 		// Add Desert
 		addDesert(temp);
 
@@ -150,7 +155,7 @@ public class Map {
 		// Get the approximate 
 		int rad = (int) Math.sqrt(size / Math.PI);
 
-		grid[x][y] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+		grid[x][y] = new Grassland(grasslandDef, grasslandDef, grasslandDef, grasslandDef, tileLength);
 
 		// Top left corner (x - rad or 0)
 		int x1 = Math.max(x - rad, 0);
@@ -161,7 +166,7 @@ public class Map {
 
 		for (int r=x1; r<x2; r++) {
 			for (int c=y1; c<y2; c++) {
-				grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+				grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef, grasslandDef, tileLength);
 				tLandMass.add(grid[r][c]);
 			}
 		}
@@ -182,15 +187,15 @@ public class Map {
 		// Bottom Right corner
 		int x2 = Math.min(x + rad, N - 1);
 		int y2 = Math.min(y + rad, N - 1);
-		
+
 		while (!(grid[x][y] instanceof Grassland)) {
 			x = (int) (Math.random() * N);
 			y = (int) (Math.random() * N);
 		}
-		
+
 		for (int r=x1; r<x2; r++) {
 			for (int c=y1; c<y2; c++) {
-				grid[r][c] = new Desert(desertDef, desertDef, desertDef);
+				grid[r][c] = new Desert(desertDef, desertDef, desertDef, desertDef, tileLength);
 				tLandMass.add(grid[r][c]);
 			}
 		}
@@ -211,7 +216,7 @@ public class Map {
 				y = (int) (Math.random() * N);
 			}
 
-			grid[x][y] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+			grid[x][y] = new Grassland(grasslandDef, grasslandDef, grasslandDef, grasslandDef, tileLength);
 			tLandMass.add(grid[x][y]);
 
 			// Top left corner (x - rad or 0)
@@ -223,7 +228,7 @@ public class Map {
 
 			for (int r=x1; r<x2; r++) {
 				for (int c=y1; c<y2; c++) {
-					grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+					grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef, grasslandDef, tileLength);
 					tLandMass.add(grid[r][c]);
 				}
 			}
@@ -245,7 +250,7 @@ public class Map {
 			}
 
 			tLandMass.remove(grid[x][y]);
-			grid[x][y] = new Ocean(oceanDef, oceanDef, oceanDef);
+			grid[x][y] = new Ocean(oceanDef, oceanDef, oceanDef, oceanDef, tileLength);
 
 			// Top left corner (x - rad or 0)
 			int x1 = Math.max(x - rad, 0);
@@ -257,11 +262,21 @@ public class Map {
 			for (int r=x1; r<x2; r++) {
 				for (int c=y1; c<y2; c++) {
 					tLandMass.remove(grid[r][c]);
-					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef);
+					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef, oceanDef, tileLength);
 				}
 			}
 
 		}
+	}
+
+	// This method is used to get the x coordinate of the spawning location of the player (location of capital)
+	public int getSpawnXCoord () {
+		return spawnXLocs[0];
+	}
+
+	// This method is used to get the y coordinate of the spawning location of the player (location of capital)
+	public int getSpawnYCoord () {
+		return spawnYLocs[0];
 	}
 
 	// This method adds noise to a perfect sized continent

@@ -30,6 +30,9 @@ public class Grassland extends Terrain {
 	private Image defaultImg;
 	private Image depImg;
 	private Image fullImg;
+	private Image selectedImage;
+	
+	private int N;
 
 	public Grassland () {
 		super();
@@ -39,6 +42,7 @@ public class Grassland extends Terrain {
 			defaultImg = ImageIO.read(new File("images/tGrassland.png"));
 			depImg = ImageIO.read(new File("images/tGrassland.png"));
 			fullImg = ImageIO.read(new File("images/tGrassland.png"));
+			selectedImage = ImageIO.read(new File("images/tGrassland"));
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}
@@ -49,17 +53,20 @@ public class Grassland extends Terrain {
 		defaultImg = defaultImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		depImg = depImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		fullImg = fullImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+		selectedImage = selectedImage.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		
 	}
 
-	public Grassland (Image defaultImg, Image depImg, Image fullImg) {
-		super(defaultImg, depImg, fullImg);
+	public Grassland (Image defaultImg, Image depImg, Image fullImg, Image selectedImage, int N) {
+		super(defaultImg, depImg, fullImg, selectedImage, N);
 		// Initialize resources
 		initResourceWHP();
-		// Initialize images for default (no resources), depleted resources, and full resources
+		// Initialize images for default (no resources), depleted resources, full resources and selected image
 		this.defaultImg = defaultImg;
 		this.depImg = depImg;
 		this.fullImg = fullImg;
+		this.selectedImage = selectedImage;
+		this.N = N;
 	}
 
 	// This method initializes the resource level of this tile

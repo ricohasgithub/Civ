@@ -29,6 +29,9 @@ public class Ocean extends Terrain {
 	private Image defaultImg;
 	private Image depImg;
 	private Image fullImg;
+	private Image selectedImage;
+	
+	private int N;
 	
 	public Ocean () {
 		super();
@@ -39,6 +42,7 @@ public class Ocean extends Terrain {
 			defaultImg = ImageIO.read(new File("images/tOcean.png"));
 			depImg = ImageIO.read(new File("images/tOcean.png"));
 			fullImg = ImageIO.read(new File("images/tOcean.png"));
+			selectedImage = ImageIO.read(new File("images/tOcean.png"));
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}
@@ -46,17 +50,21 @@ public class Ocean extends Terrain {
 		defaultImg = defaultImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		depImg = depImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		fullImg = fullImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
+		selectedImage = selectedImage.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		
 	}
 
-	public Ocean (Image defaultImg, Image depImg, Image fullImg) {
-		super(defaultImg, depImg, fullImg);
+	public Ocean (Image defaultImg, Image depImg, Image fullImg, Image selectedImage, int N) {
+		super(defaultImg, depImg, fullImg, selectedImage, N);
 		// Initialize resources
 		initResourceWHP();
 		// Initialize images for default (no resources), depleted resources, and full resources
 		this.defaultImg = defaultImg;
 		this.depImg = depImg;
 		this.fullImg = fullImg;
+		this.selectedImage = selectedImage;
+		
+		this.N = N;
 	}
 
 	// This method initializes the resource level of this tile
