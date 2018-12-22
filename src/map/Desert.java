@@ -2,7 +2,6 @@ package map;
 
 import java.awt.Graphics;
 import java.awt.Image;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -11,7 +10,7 @@ import javax.imageio.ImageIO;
 import civ.Civilization;
 import unit.Unit;
 
-public class Grassland extends Terrain {
+public class Desert extends Terrain {
 
 	private double ATTACKBOOST;
 	private double DEFBOOST;
@@ -20,7 +19,7 @@ public class Grassland extends Terrain {
 	private boolean hasBuilding;
 	private boolean isHidden;
 	private boolean isSelected;
-
+	
 	private int resources;
 
 	private Unit unit;
@@ -31,28 +30,27 @@ public class Grassland extends Terrain {
 	private Image depImg;
 	private Image fullImg;
 
-	public Grassland () {
-		super();
+	public Desert () {
 		
+		super();
+		// Initialize resources
+		initResourceWHP();
 		// Initialize images for default (no resources), depleted resources, and full resources
 		try {
-			defaultImg = ImageIO.read(new File("images/tGrassland.png"));
-			depImg = ImageIO.read(new File("images/tGrassland.png"));
-			fullImg = ImageIO.read(new File("images/tGrassland.png"));
+			defaultImg = ImageIO.read(new File("images/tDesert.png"));
+			depImg = ImageIO.read(new File("images/tDesert.png"));
+			fullImg = ImageIO.read(new File("images/tDesert.png"));
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}
-		
-		// Initialize resources
-		initResourceWHP();
 
 		defaultImg = defaultImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		depImg = depImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
 		fullImg = fullImg.getScaledInstance(5, 5, Image.SCALE_SMOOTH);
-		
+
 	}
 
-	public Grassland (Image defaultImg, Image depImg, Image fullImg) {
+	public Desert (Image defaultImg, Image depImg, Image fullImg) {
 		super(defaultImg, depImg, fullImg);
 		// Initialize resources
 		initResourceWHP();

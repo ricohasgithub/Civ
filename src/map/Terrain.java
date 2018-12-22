@@ -14,6 +14,7 @@ public abstract class Terrain {
 	private boolean hasUnit;
 	private boolean hasBuilding;
 	private boolean isHidden;
+	private boolean isSelected;
 	
 	private int resource;
 	
@@ -48,5 +49,6 @@ public abstract class Terrain {
 	public abstract boolean hasBuilding ();
 	public abstract boolean isHidden ();
 	public abstract boolean hasResource ();
+	public abstract boolean isSelected ();
 	
 }

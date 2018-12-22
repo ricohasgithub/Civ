@@ -18,7 +18,8 @@ public class Map {
 
 	Image grasslandDef;
 	Image oceanDef;
-	
+	Image desertDef;
+
 	ArrayList<Terrain> tLandMass;
 
 	// Default Constructor - make the map 255 by 255 terrain blocks
@@ -27,6 +28,7 @@ public class Map {
 		try {
 			grasslandDef = ImageIO.read(new File("images/tGrassland.png"));
 			oceanDef = ImageIO.read(new File("images/tOcean.png"));
+			desertDef = ImageIO.read(new File("images/tDesert.png"));
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}
@@ -36,9 +38,9 @@ public class Map {
 
 		N = 50;
 		grid = new Terrain[50][50];
-		
+
 		tLandMass = new ArrayList<Terrain>();
-		
+
 		initializeRanTerrain();
 	}
 
@@ -84,13 +86,15 @@ public class Map {
 		numContinents = ((int) (Math.random() * 3)) + 1;
 		System.out.println("Adding " + numContinents + " Continents...");
 		// Random variable for temperature / equator deserts (how dry to world is)
-		int temp = (int) Math.random() * 3;
+		int temp = (int) (Math.random() * 3);
 
 		// Random variable for climate - overall ratio of wetlands and forests
-		int climate = (int) Math.random() * 3;
+		int climate = (int) (Math.random() * 3);
 
 		// Random variable for age - mountain ratio
-		int age = (int) Math.random() * 3;
+		int age = (int) (Math.random() * 3);
+		
+		System.out.println("Temperature: " + temp);
 
 		// This variable determines how large a perfect continent would be
 		int pCSize = (int) (((N * N) * 0.3) / numContinents);
@@ -101,36 +105,42 @@ public class Map {
 
 			// Get the size of the continent (with noise)
 			int cSize = addNoiseToContSize(pCSize);
-			
+
 			System.out.println("Continent " + cont + " Size: " + cSize);
 
 			// Randomly initialize continent center position
 			int x = (int) (Math.random() * N);
 			int y = (int) (Math.random() * N);
-			
+
 			System.out.println("X: " + x + ", " + "Y: " + y);
 
 			addContinentToMap(x, y, cSize);
-			
+
 		}
-		
+
 		// Add lakes
-		addLakes(2);
+		addLakes(5);
+
+		// Add islands
+		addIslands(4);
 		
+		// Add Desert
+		addDesert(temp);
+
 		// If there isn't enough landmass on the map, add a fourth continent
 		if (tLandMass.size() < 850) {
-			
+
 			System.out.println("Adding Fourth Continent...");
-			
+
 			int cSize = addNoiseToContSize(pCSize);
-			
+
 			int x = (int) (Math.random() * N);
 			int y = (int) (Math.random() * N);
-			
+
 			addContinentToMap(x, y, cSize);
-			
+
 		}
-		
+
 		System.out.println("Total Land Mass: " + tLandMass.size());
 
 	}
@@ -155,26 +165,88 @@ public class Map {
 				tLandMass.add(grid[r][c]);
 			}
 		}
-	
+
 	}
-	
+
+	// This method randomly initializes a strip of desert on the map near the equator
+	private void addDesert (int temp) {
+
+		int rad = temp * 2;
+
+		int x = (int) (Math.random() * N);
+		int y = N/2 + ((int) (Math.random() * 4));
+
+		// Top left corner (x - rad or 0)
+		int x1 = Math.max(x - rad, 0);
+		int y1 = Math.max(y - rad, 0);
+		// Bottom Right corner
+		int x2 = Math.min(x + rad, N - 1);
+		int y2 = Math.min(y + rad, N - 1);
+		
+		while (!(grid[x][y] instanceof Grassland)) {
+			x = (int) (Math.random() * N);
+			y = (int) (Math.random() * N);
+		}
+		
+		for (int r=x1; r<x2; r++) {
+			for (int c=y1; c<y2; c++) {
+				grid[r][c] = new Desert(desertDef, desertDef, desertDef);
+				tLandMass.add(grid[r][c]);
+			}
+		}
+
+	}
+
+	// This method adds random islands to the map
+	private void addIslands (int numIslands) {
+		for (int i=0; i<numIslands; i++) {
+			// Get a random radius for each island
+			int rad = (int) (Math.random() * 4) + 2;
+
+			int x = (int) (Math.random() * N);
+			int y = (int) (Math.random() * N);
+
+			while (!(grid[x][y] instanceof Ocean)) {
+				x = (int) (Math.random() * N);
+				y = (int) (Math.random() * N);
+			}
+
+			grid[x][y] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+			tLandMass.add(grid[x][y]);
+
+			// Top left corner (x - rad or 0)
+			int x1 = Math.max(x - rad, 0);
+			int y1 = Math.max(y - rad, 0);
+			// Bottom Right corner
+			int x2 = Math.min(x + rad, N - 1);
+			int y2 = Math.min(y + rad, N - 1);
+
+			for (int r=x1; r<x2; r++) {
+				for (int c=y1; c<y2; c++) {
+					grid[r][c] = new Grassland(grasslandDef, grasslandDef, grasslandDef);
+					tLandMass.add(grid[r][c]);
+				}
+			}
+		}
+	}
+
 	// This method adds random blots of water (lakes) onto the landmasses
 	private void addLakes (int numBodies) {
 		for (int i=0; i<numBodies; i++) {
 			// Get a random radius for each lake
-			int rad = (int) (Math.random() * 7) + 1;
-			
+			int rad = (int) (Math.random() * 4) + 2;
+
 			int x = (int) (Math.random() * N);
 			int y = (int) (Math.random() * N);
-			
+
 			while (!(grid[x][y] instanceof Grassland)) {
 				x = (int) (Math.random() * N);
 				y = (int) (Math.random() * N);
 			}
-			
+
 			tLandMass.remove(grid[x][y]);
 			grid[x][y] = new Ocean(oceanDef, oceanDef, oceanDef);
-			
+
 			// Top left corner (x - rad or 0)
 			int x1 = Math.max(x - rad, 0);
 			int y1 = Math.max(y - rad, 0);
@@ -188,7 +260,7 @@ public class Map {
 					grid[r][c] = new Ocean(oceanDef, oceanDef, oceanDef);
 				}
 			}
-			
+
 		}
 	}
 

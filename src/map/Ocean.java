@@ -18,6 +18,7 @@ public class Ocean extends Terrain {
 	private boolean hasUnit;
 	private boolean hasBuilding;
 	private boolean isHidden;
+	private boolean isSelected;
 
 	private int resources;
 
@@ -110,6 +111,10 @@ public class Ocean extends Terrain {
 	public boolean hasResource () {
 		// Return if there are resources left
 		return (resources > 0);
+	}
+	
+	public boolean isSelected () {
+		return isSelected;
 	}
 	
 }
