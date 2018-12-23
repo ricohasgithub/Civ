@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import civ.Civilization;
+
 import java.util.ArrayList;
 
 public class Map {
@@ -23,8 +25,7 @@ public class Map {
 
 	ArrayList<Terrain> tLandMass;
 	
-	int[] spawnXLocs;
-	int[] spawnYLocs;
+	Civilization[] civs;
 
 	// Default Constructor - make the map 255 by 255 terrain blocks
 	public Map () {
@@ -39,6 +40,7 @@ public class Map {
 
 		grasslandDef = grasslandDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		oceanDef = oceanDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		desertDef = desertDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
 		N = 50;
 		tileLength = 50;
@@ -47,6 +49,8 @@ public class Map {
 		tLandMass = new ArrayList<Terrain>();
 
 		initializeRanTerrain();
+		initRanSpawn();
+
 	}
 
 	// Custom constructor - make the map N by N terrain blocks
@@ -268,22 +272,28 @@ public class Map {
 
 		}
 	}
-
-	// This method is used to get the x coordinate of the spawning location of the player (location of capital)
-	public int getSpawnXCoord () {
-		return spawnXLocs[0];
-	}
-
-	// This method is used to get the y coordinate of the spawning location of the player (location of capital)
-	public int getSpawnYCoord () {
-		return spawnYLocs[0];
-	}
-
+	
 	// This method adds noise to a perfect sized continent
 	private int addNoiseToContSize (int pCSize) {
 		// This variable determines the variance (-25% to +25%)
 		double ranProportion = 1 - (Math.random() - 0.75);
 		return (int) (pCSize * ranProportion);
+	}
+	
+	// This method is used to randomly spawn all (4) of the civ's capitals
+	private void initRanSpawn () {
+		civs = new Civilization[4];
+		
+	}
+
+	// This method is used to get the x coordinate of the spawning location of the player (location of capital)
+	public int getSpawnXCoord () {
+		return civs[0].getCaptialCityX();
+	}
+
+	// This method is used to get the y coordinate of the spawning location of the player (location of capital)
+	public int getSpawnYCoord () {
+		return civs[0].getCaptialCityY();
 	}
 
 }

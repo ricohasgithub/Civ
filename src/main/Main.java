@@ -55,6 +55,15 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 		map.drawMap(g);
 	}
 
+	// Method to add delays for smoother animations
+	public void delay(int mili) {
+		try {
+			Thread.sleep(mili);
+		} catch (InterruptedException e) {
+			System.out.println("ERROR IN SLEEPING");
+		}
+	}
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Main");
 		frame.getContentPane().add(new Main());
