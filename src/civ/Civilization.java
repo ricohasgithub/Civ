@@ -6,15 +6,18 @@ import java.util.ArrayList;
 
 public abstract class Civilization {
 	
-	public String civ;
+	public String civName;
+	public String civNatName;
+	public String civCapital;
 	
 	public Image symbol;
 	public Image leader;
 	
 	private ArrayList<City> citiesList;
 	
-	public Civilization () {
-		
+	public Civilization (String civName, int capX, int capY, Image capImage) {
+		// Add capital city to cities list
+		citiesList.add(new City(CivDetails.AMERICAN_CAPITALCITYNAME, capX, capY, true, capImage));
 	}
 	
 	public int getCaptialCityX () {

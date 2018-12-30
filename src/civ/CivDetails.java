@@ -12,20 +12,28 @@ public class CivDetails {
 	
 	public String EGYPTIANS = "Egyptians";
 	public String EGYPTIAN_NATNAME = "Egypt";
-	public String EGYPTIAN_CAPITALCITYNAME = "Alexandria";
+	public String EGYPTIAN_CAPITALCITYNAME = "Thebes";
 	
-	public String AMERICAN = "American";
-	public String AMERICAN_NATNAME = "America";
-	public String AMERICAN_CAPITALCITYNAME = "Washington";
+	public static String AMERICAN = "American";
+	public static String AMERICAN_NATNAME = "America";
+	public static String AMERICAN_CAPITALCITYNAME = "Washington";
+	public static String[] AMERICAN_CITIESNAMELIST = {"New York", "Los Angeles", "San Francisco", "Baltimore", "Philadelphia",
+											   "Seatle", "Honolulu", "Miami", "Houston", "Chicago", "Austin", "Boston",
+											   "Atlanta", "New Orleans", "Denver"};
 	
-	public String CHINESE = "Chinese";
-	public String CHINESE_NATNAME = "China";
-	public String CHINESE_CAPITALCITYNAME = "Chang An";
+	public static String CHINESE = "Chinese";
+	public static String CHINESE_NATNAME = "China";
+	public static String CHINESE_CAPITALCITYNAME = "Chang An";
+	public static String[] CHINESE_CITIESNAMELIST = {"Beijing", "Shanghai", "Chongqing", "Tianjin", "Qingdao", "Guanzhou",
+											  "Hong Kong", "Shenzheng", "Harbin", "Suzhou", "Macau", "Wuhan", "Zhuhai",
+											  "Fujian", "Dalian"};
 	
 	public String JAPANESE = "Japanese";
 	public String JAPANESE_NATNAME = "Japan";
-	public String JAPANESE_CAPITALCITYNAME = "Tokyo";
-	
+	public String JAPANESE_CAPITALCITYNAME = "Kyoto";
+	public String[] JAPANESE_CITIESNAMELIST = {"Tokyo", "Osaka", "Edo", "Hiroshima", "Nagasaki", "", "", 
+											   "", "", "", "", "", "", "", ""};
+			
 	public String ENGLISH = "English";
 	public String ENGLISH_NATNAME = "England";
 	public String ENGLISH_CAPITALCITYNAME = "London";

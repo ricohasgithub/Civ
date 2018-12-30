@@ -22,6 +22,8 @@ public class Map {
 	Image grasslandDef;
 	Image oceanDef;
 	Image desertDef;
+	
+	Image palaceBlue;
 
 	ArrayList<Terrain> tLandMass;
 	
@@ -31,9 +33,13 @@ public class Map {
 	public Map () {
 
 		try {
+			
 			grasslandDef = ImageIO.read(new File("images/tGrassland.png"));
 			oceanDef = ImageIO.read(new File("images/tOcean.png"));
 			desertDef = ImageIO.read(new File("images/tDesert.png"));
+			
+			palaceBlue = ImageIO.read(new File("images/PalaceB.png"));
+			
 		} catch (IOException e) {
 			System.out.println("File not found");
 		}
@@ -42,6 +48,8 @@ public class Map {
 		oceanDef = oceanDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		desertDef = desertDef.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
+		palaceBlue = palaceBlue.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		
 		N = 50;
 		tileLength = 50;
 		grid = new Terrain[50][50];
@@ -283,7 +291,9 @@ public class Map {
 	// This method is used to randomly spawn all (4) of the civ's capitals
 	private void initRanSpawn () {
 		civs = new Civilization[4];
-		
+		for (int i=0; i<civs.length; i++) {
+			// civs[i] = new Civilization();
+		}
 	}
 
 	// This method is used to get the x coordinate of the spawning location of the player (location of capital)
