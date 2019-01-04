@@ -13,14 +13,25 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 	Map map;
 	FieldView playerView;
 
+	boolean inPlayerView;
+	
 	public Main () {
+		System.out.println("Generating Map...");
 		map = new Map();
 		System.out.println("Done Generating Map!");
+		System.out.println("Spawning Players...");
+		playerView = new FieldView(map, 10, 10);
+		System.out.println("Done Spawning Players!");
+		inPlayerView = false;
 		repaint();
 	}
 
 	public void keyPressed (KeyEvent e) {
-
+		if (inPlayerView) {
+			// Player Interaction Events
+		} else {
+			// Map Interaction Events
+		}
 	}
 
 	public void keyReleased (KeyEvent e) {
@@ -52,7 +63,11 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 	}
 
 	public void paintComponent (Graphics g) {
-		map.drawMap(g);
+		if (!inPlayerView) {
+			map.drawMap(g);
+		} else {
+			playerView.draw(g);
+		}
 	}
 
 	// Method to add delays for smoother animations
